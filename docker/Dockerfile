@@ -1,7 +1,9 @@
 FROM python:3.12.14-slim AS base
 COPY --from=ghcr.io/astral-sh/uv:0.9.7 /uv /uvx /bin/
 
-RUN apt update && apt install --no-install-recommends -y git curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install --no-install-recommends -y git curl && \
+    apt-get upgrade -y libssl3t64 openssl && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 ENV UV_COMPILE_BYTECODE=1
